@@ -1,0 +1,413 @@
+<!--
+ API Documentation HTML Template  - 1.0.1
+ Copyright © 2016 Florian Nicolas
+ Licensed under the MIT license.
+ https://github.com/ticlekiwi/API-Documentation-HTML-Template
+!-->
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Plutonication - Documentation</title>
+    <meta name="description" content="">
+
+    <meta http-equiv="cleartype" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../static/hightlightjs-dark.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&family=Source+Code+Pro:wght@300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css" media="all">
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+    <div class="left-menu">
+        <div class="content-logo">
+            <div class="logo">
+
+                <span>Plutonication</span>
+            </div>
+            <button class="burger-menu-icon" id="button-menu-mobile">
+                <svg width="34" height="34" viewBox="0 0 100 100">
+                    <path class="line line1"
+                        d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058">
+                    </path>
+                    <path class="line line2" d="M 20,50 H 80"></path>
+                    <path class="line line3"
+                        d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu-closer"></div>
+        <div class="content-menu">
+            <div class="content-infos">
+                <!--<div class="info"><b>Version:</b> 1.0.5</div>-->
+                <div class="info"><b>Last Updated:</b> 6th Feb, 2024</div>
+            </div>
+            <ul>
+                <li class="scroll-to-link active" data-target="content-description">
+                    <a>What is Plutonication</a>
+                </li>
+                <li class="scroll-to-link" data-target="content-installation">
+                    <a>Installation</a>
+                </li>
+                <li class="scroll-to-link" data-target="content-access-credentials">
+                    <a>Access Credentials</a>
+                </li>
+                <li class="scroll-to-link" data-target="content-initialize-plutonication">
+                    <a>Initialize Plutonication</a>
+                </li>
+                <li class="scroll-to-link" data-target="content-advanced-use">
+                    <a>Advanced use</a>
+                </li>
+                <li class="scroll-to-link" data-target="content-wallet-client">
+                    <a>Wallet client</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content-page">
+        <div class="content-code"></div>
+        <div class="content">
+            <div class="overflow-hidden content-section" id="content-description">
+                <h1>What is Plutonication</h1>
+                <pre>
+                    Examples in Javascript
+                </pre>
+                <p>
+                    Plutonication allows users to connect PlutoWallet to other dApps seamlessly on any platforms,
+                    accross multiple codebases.
+                    DApp just generates a QR code and once it is scanned in the wallet, they will pair and the wallet
+                    will be able to receive transaction requests from the dApp.
+                    It works on the same principle as WalletConnect protocol.
+                </p>
+            </div>
+            <div class="overflow-hidden content-section" id="content-installation">
+                <h1>Installation</h1>
+                <pre><code class="js">
+import {
+    AccessCredentials,
+    initializePlutonicationWalletClient,
+} from '@plutonication/plutonication'
+                </code></pre>
+                <p>
+                    Use this command: <code class="higlighted break-word">npm i @plutonication/plutonication</code>.
+                </p>
+                <p>
+                    After the installation succeeds, do not forget to import it.
+                </p>
+            </div>
+            <div class="overflow-hidden content-section" id="content-access-credentials">
+                <h2>Access Credentials</h2>
+                <pre>
+                    <code class="js">
+const accessCredentials = new AccessCredentials(
+    // Address of Plutonication server
+    // Feel free to use this one
+    "wss://plutonication-acnha.ondigitalocean.app/",
+
+    // dApp name
+    "Plutonication test",
+
+    // dApp icon
+    "https://rostislavlitovkin.pythonanywhere.com/plutowalleticonwhite"
+)
+                 </code></pre>
+                <p>
+                    To use PlutonicationDAppClient, you need to provide the AccessCredentials with the necessary
+                    information.
+                </p>
+                <p>
+                    But do not worry, it is this easy.
+                </p>
+
+                <p>
+                    Feel free to use the <code
+                        class="higlighted break-word">wss://plutonication-acnha.ondigitalocean.app/</code> address.
+                    You might also choose to deploy your own Plutonication server. The guide on how to deploy it can be
+                    found <a href="https://plutonication-acnha.ondigitalocean.app/deploy/flask-digital-ocean">here</a>.
+                </p>
+                <p>
+                    DApp name and dApp icon properties are shown in the wallet upon requesting connection.
+                </p>
+            </div>
+
+
+            <div class="overflow-hidden content-section" id="content-initialize-plutonication">
+                <h2>Initialize Plutonication</h2>
+                <pre>
+                    <code class="js">
+// Get the Plutonication account
+const account = await initializePlutonicationDAppClientWithModal(
+    // Include your access credentials
+    accessCredentials,
+
+    // Optinally add extra behaviour on when the wallet successfully connects
+    (receivedPubkey) => {
+        console.log("receivedPubkey", receivedPubkey);
+    },
+)
+
+// Do not forget to include &lt;plutonication-modal&gt;&lt;/plutonication-modal&gt;
+// on the place where you want to include the Plutonication modal.
+                 </code></pre>
+                <p>
+                    The following method initializes PlutonicationDAppClient and reveals
+                    <code class="higlighted break-word">&lt;plutonication-modal&gt;&lt;/plutonication-modal&gt;</code>.
+                </p>
+                <p>
+                    It also returns you the <b>account</b> object of type <b>Injected</b>.
+                    This account object can be used the same way as you would the injector from the <a
+                        href="https://polkadot.js.org/docs/extension/usage">Polkadot.js/extension</a>.
+                </p>
+            </div>
+
+            <div class="overflow-hidden content-section" id="content-advanced-use">
+                <h2>Advanced use</h2>
+                <pre>
+                    <code class="js">
+// Get the Plutonication account
+const account = await initializePlutonicationDAppClient(
+    // Include your access credentials
+    accessCredentials,
+
+    // Optinally add extra behaviour on when the wallet successfully connects
+    (receivedPubkey) => {
+        console.log("receivedPubkey", receivedPubkey);
+    },
+)
+
+// Do not forget to include &lt;plutonication-modal&gt;&lt;/plutonication-modal&gt;
+// on the place where you want to include the Plutonication modal.
+                 </code></pre>
+                <p>
+                    The following method just initializes PlutonicationDAppClient. It does not reveal any
+                    <code class="higlighted break-word">&lt;plutonication-modal&gt;&lt;/plutonication-modal&gt;</code>.
+                </p>
+                <p>
+                    This method is meant for more advanced use cases.
+                    It is totally up to you how you transfer the accessCredentials information to the wallet.
+                    Without the plutonication-modal, you have to create your own QR code or you have to use any other method.
+                </p>
+                <p>
+                    It also returns you the <b>account</b> object of type <b>Injected</b>.
+                    This account object can be used the same way as you would the injector from the <a
+                        href="https://polkadot.js.org/docs/extension/usage">Polkadot.js/extension</a>.
+                </p>
+            </div>
+
+            <div class="overflow-hidden content-section" id="content-wallet-client">
+                <h2>Wallet client</h2>
+                <pre>
+                    <code class="js">
+// any KeyringPair account
+const alice = getAlice()
+
+const walletClient = await initializePlutonicationWalletClient(
+    // Your Access Credentials
+    accessCredentials,
+
+    // Account public address
+    alice.address,
+
+    // Payload signing logic
+    async (payload: SignerPayloadJSON) => {
+        // Feel free to change this logic to fit your needs
+
+        const signingPayload = api.registry.createType("ExtrinsicPayload", payload, {
+            version: payload.version,
+        });
+
+        console.log(`Payload to Sign ${signingPayload.toHex()}`);
+
+        let message = signingPayload.toU8a({ method: true });
+        // If the message is too long, hash it
+        if (message.length > 256) {
+            message = api.registry.hash(message); // blake2b_256
+        }
+
+        const signature = alice.sign(message)
+
+        // Do not forget to send the signature back to dApp
+        walletClient.send_payload_signature({ signature: u8aToHex(signature), id: 0 })
+    },
+
+    // Raw message signing logic
+    async (raw: SignerPayloadRaw) => {
+        // Feel free to change this logic to fit your needs
+
+        const signature = alice.sign(hexToU8a(raw.data))
+
+        // Do not forget to send the signature back to dApp
+        walletClient.send_raw_signature({ signature: u8aToHex(signature), id: 0 })
+    },
+)
+                 </code></pre>
+                <p>
+                    If you are developing your own crypto wallet and you want to add Plutonication into your app,
+                    then you are at the right place.
+                </p>
+                <p>
+                    By calling <code class="higlighted break-word">initializePlutonicationWalletClient</code> with all correct arguments, you will initialize the wallet client in the background.
+                    You do not have to do anything else.
+                </p>
+                <p>
+                    Yes, <b>It works like a magic!</b>
+                </p>
+            </div>
+            <!-- Github Corner Ribbon - to remove (Ribbon created with : http://tholman.com/github-corners/ )-->
+            <a href="https://github.com/RostislavLitovkin/Plutonication" class="github-corner"
+                aria-label="View source on Github" title="View source on Github"><svg width="80" height="80"
+                    viewBox="0 0 250 250"
+                    style="z-index:99999; fill:#70B7FD; color:#fff; position: fixed; top: 0; border: 0; right: 0;"
+                    aria-hidden="true">
+                    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+                    <path
+                        d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+                        fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+                    <path
+                        d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+                        fill="currentColor" class="octo-body"></path>
+                </svg></a>
+            <style>
+                .github-corner:hover .octo-arm {
+                    animation: octocat-wave 560ms ease-in-out
+                }
+
+                @keyframes octocat-wave {
+
+                    0%,
+                    100% {
+                        transform: rotate(0)
+                    }
+
+                    20%,
+                    60% {
+                        transform: rotate(-25deg)
+                    }
+
+                    40%,
+                    80% {
+                        transform: rotate(10deg)
+                    }
+                }
+
+                @media (max-width:500px) {
+                    .github-corner:hover .octo-arm {
+                        animation: none
+                    }
+
+                    .github-corner .octo-arm {
+                        animation: octocat-wave 560ms ease-in-out
+                    }
+                }
+
+                @media only screen and (max-width:680px) {
+                    .github-corner>svg {
+                        right: auto !important;
+                        left: 0 !important;
+                        transform: rotate(270deg) !important;
+                    }
+                }
+            </style>
+            <!-- END Github Corner Ribbon - to remove -->
+            <script>
+                var elements = [];
+
+                [].forEach.call(document.querySelectorAll('.scroll-to-link'), function (div) {
+                    div.onclick = function (e) {
+                        e.preventDefault();
+                        var target = this.dataset.target;
+                        document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+                        var elems = document.querySelectorAll(".content-menu ul li");
+                        [].forEach.call(elems, function (el) {
+                            el.classList.remove("active");
+                        });
+                        this.classList.add("active");
+                        return false;
+                    };
+                });
+
+                document.getElementById('button-menu-mobile').onclick = function (e) {
+                    e.preventDefault();
+                    document.querySelector('html').classList.toggle('menu-opened');
+                }
+                document.querySelector('.left-menu .mobile-menu-closer').onclick = function (e) {
+                    e.preventDefault();
+                    document.querySelector('html').classList.remove('menu-opened');
+                }
+
+                function debounce(func) {
+                    var timer;
+                    return function (event) {
+                        if (timer) clearTimeout(timer);
+                        timer = setTimeout(func, 100, event);
+                    };
+                }
+
+                function calculElements() {
+                    var totalHeight = 0;
+                    elements = [];
+                    [].forEach.call(document.querySelectorAll('.content-section'), function (div) {
+                        var section = {};
+                        section.id = div.id;
+                        totalHeight += div.offsetHeight;
+                        section.maxHeight = totalHeight - 25;
+                        elements.push(section);
+                    });
+                    onScroll();
+                }
+
+                function onScroll() {
+                    var scroll = window.pageYOffset;
+                    console.log('scroll', scroll, elements)
+                    for (var i = 0; i < elements.length; i++) {
+                        var section = elements[i];
+                        if (scroll <= section.maxHeight) {
+                            var elems = document.querySelectorAll(".content-menu ul li");
+                            [].forEach.call(elems, function (el) {
+                                el.classList.remove("active");
+                            });
+                            var activeElems = document.querySelectorAll(".content-menu ul li[data-target='" + section.id + "']");
+                            [].forEach.call(activeElems, function (el) {
+                                el.classList.add("active");
+                            });
+                            break;
+                        }
+                    }
+                    if (window.innerHeight + scroll + 5 >= document.body.scrollHeight) { // end of scroll, last element
+                        var elems = document.querySelectorAll(".content-menu ul li");
+                        [].forEach.call(elems, function (el) {
+                            el.classList.remove("active");
+                        });
+                        var activeElems = document.querySelectorAll(".content-menu ul li:last-child");
+                        [].forEach.call(activeElems, function (el) {
+                            el.classList.add("active");
+                        });
+                    }
+                }
+
+                calculElements();
+                window.onload = () => {
+                    calculElements();
+                };
+                window.addEventListener("resize", debounce(function (e) {
+                    e.preventDefault();
+                    calculElements();
+                }));
+                window.addEventListener('scroll', function (e) {
+                    e.preventDefault();
+                    onScroll();
+                });
+            </script>
+</body>
+
+</html>
