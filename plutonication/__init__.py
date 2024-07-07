@@ -2,6 +2,7 @@ from flask import Flask
 from .events import socketio
 from .extensions import cache
 from .router import app
+from flask_cors import CORS
 
 def create_app():
     # Config here
@@ -10,6 +11,8 @@ def create_app():
         "CACHE_TYPE": "SimpleCache",  # Flask-Caching related config
         "CACHE_DEFAULT_TIMEOUT": 1  # Flask-Caching related config
     })
+
+    CORS(app, resources={r"/*": {"origins": "*"}})
 
     socketio.init_app(
         app,

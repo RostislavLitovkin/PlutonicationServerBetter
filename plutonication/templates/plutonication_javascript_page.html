@@ -31,7 +31,7 @@
     <div class="left-menu">
         <div class="content-logo">
             <div class="logo">
-
+                
                 <span>Plutonication</span>
             </div>
             <button class="burger-menu-icon" id="button-menu-mobile">
@@ -49,8 +49,8 @@
         <div class="mobile-menu-closer"></div>
         <div class="content-menu">
             <div class="content-infos">
-                <!--<div class="info"><b>Version:</b> 1.0.5</div>-->
-                <div class="info"><b>Last Updated:</b> 6th Feb, 2024</div>
+                <div class="info"><b>Version:</b> 1.1.0</div>
+                <div class="info"><b>Last Updated:</b> 2th July, 2024</div>
             </div>
             <ul>
                 <li class="scroll-to-link active" data-target="content-description">
@@ -96,6 +96,7 @@
 import {
     AccessCredentials,
     initializePlutonicationWalletClient,
+    initializePlutonicationWalletClientWithModal
 } from '@plutonication/plutonication'
                 </code></pre>
                 <p>
@@ -112,7 +113,7 @@ import {
 const accessCredentials = new AccessCredentials(
     // Address of Plutonication server
     // Feel free to use this one
-    "wss://plutonication-acnha.ondigitalocean.app/",
+    "wss://plutonication.com/",
 
     // dApp name
     "Plutonication test",
@@ -131,9 +132,9 @@ const accessCredentials = new AccessCredentials(
 
                 <p>
                     Feel free to use the <code
-                        class="higlighted break-word">wss://plutonication-acnha.ondigitalocean.app/</code> address.
+                        class="higlighted break-word">wss://plutonication.com/</code> address.
                     You might also choose to deploy your own Plutonication server. The guide on how to deploy it can be
-                    found <a href="https://plutonication-acnha.ondigitalocean.app/deploy/flask-digital-ocean">here</a>.
+                    found <a href="https://plutonication.com/deploy/flask-digital-ocean">here</a>.
                 </p>
                 <p>
                     DApp name and dApp icon properties are shown in the wallet upon requesting connection.

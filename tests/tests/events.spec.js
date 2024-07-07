@@ -4,7 +4,7 @@ import io from 'socket.io-client'
 let dAppSocket
 let walletSocket
 
-// You might want to change this to wss://plutonication-acnha.ondigitalocean.app/
+// You might want to change this to wss://plutonication.com/
 // or other URL, if you want to use your own endpoint.
 const endpointUrl = "ws://127.0.0.1:8000"
 
@@ -73,19 +73,31 @@ test.beforeAll(async () => {
 });
 
 test.describe("events", () => {
-  test("create_room and pubkey", async () => {
+  test("connect_dapp and connect_wallet", async () => {
     const pubkey = "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"
 
-    dAppSocket.emit("create_room", { Room: room })
+    dAppSocket.emit("connect_dapp", { Room: room })
 
+    // dAppClient waits for the pubkey
     await new Promise((resolve) => {
-      dAppSocket.on("pubkey", (receivedPubkey) => {
+      dAppSocket.on("pubkey", async (receivedPubkey) => {
         expect(receivedPubkey).toBe(pubkey)
+
+        // wallet waits for the confirmation
+        await new Promise((resolve) => {
+          walletSocket.on("confirm_dapp_connection", () => {
+            console.log("dApp confirmed connection")
+
+            resolve()
+          })
+    
+          dAppSocket.emit("confirm_dapp_connection", { Room: room })
+        })
 
         resolve()
       })
 
-      walletSocket.emit("pubkey", { Data: pubkey, Room: room })
+      walletSocket.emit("connect_wallet", { Data: pubkey, Room: room })
     })
   })
 

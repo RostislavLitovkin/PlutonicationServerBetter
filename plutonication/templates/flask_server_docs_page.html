@@ -62,17 +62,29 @@
                 <li class="scroll-to-link" data-target="content-on-connect">
                     <a>On <code class="higlighted break-word">connect</code></a>
                 </li>
-                <li class="scroll-to-link" data-target="content-on-create-room">
-                    <a>On <code class="higlighted break-word">create_room</code></a>
+                <li class="scroll-to-link" data-target="content-on-connect-dapp">
+                    <a>On <code class="higlighted break-word">connect_dapp</code></a>
+                </li>
+                <li class="scroll-to-link" data-target="content-on-connect-wallet">
+                    <a><code class="higlighted break-word">connect_wallet</code></a>
                 </li>
                 <li class="scroll-to-link" data-target="content-on-pubkey">
                     <a>On <code class="higlighted break-word">pubkey</code></a>
+                </li>
+                <li class="scroll-to-link" data-target="content-on-dapp-connected">
+                    <a>On <code class="higlighted break-word">dapp_connected</code></a>
+                </li>
+                <li class="scroll-to-link" data-target="content-on-confirm-dapp-connection">
+                    <a>On <code class="higlighted break-word">confirm_dapp_connection</code></a>
                 </li>
                 <li class="scroll-to-link" data-target="content-on-sign-payload">
                     <a>On <code class="higlighted break-word">sign_payload</code></a>
                 </li>
                 <li class="scroll-to-link" data-target="content-on-payload-signature">
                     <a>On <code class="higlighted break-word">payload_signature</code></a>
+                </li>
+                <li class="scroll-to-link" data-target="content-on-update">
+                    <a>On <code class="higlighted break-word">update</code></a>
                 </li>
                 <li class="scroll-to-link" data-target="content-on-payload-signature-rejected">
                     <a>On <code class="higlighted break-word">payload_signature_rejected</code></a>
@@ -85,6 +97,9 @@
                 </li>
                 <li class="scroll-to-link" data-target="content-on-raw-signature-rejected">
                     <a>On <code class="higlighted break-word">raw_signature_rejected</code></a>
+                </li>
+                <li class="scroll-to-link" data-target="content-on-disconnect">
+                    <a>On <code class="higlighted break-word">disconnect</code></a>
                 </li>
             </ul>
         </div>
@@ -111,14 +126,14 @@
 import io from 'socket.io-client';
 
 // Change the URL, if you want to use your own endpoint.
-const socket = io("wss://plutonication-acnha.ondigitalocean.app/");
+const socket = io("wss://plutonication.com/");
                  </code></pre>
                 <p>
                     Plutonication uses <a href="https://socket.io/">Socket.IO</a>.
                 </p>
                 <p>
                     To connect your to PlutonicationServer, just connect to
-                    <code class="higlighted break-word">wss://plutonication-acnha.ondigitalocean.app/</code>
+                    <code class="higlighted break-word">wss://plutonication.com/</code>
                     .
                 </p>
                 <p>
@@ -150,20 +165,45 @@ await new Promise((resolve) => {
                     successfully to the server.
                 </p>
             </div>
-            <div class="overflow-hidden content-section" id="content-on-create-room">
-                <h2>On create_room</h2>
+            <div class="overflow-hidden content-section" id="content-on-connect-dapp">
+                <h2>On connect_dapp</h2>
                 <pre>
                     <code class="js">
-socket.emit("create_room", {
+await socket.emit("connect_dapp", {
     Room: accessCredentials.key
 });
                     </code>
                 </pre>
                 <p>
-                    Creates a new websocket room. Intended to be used by dApps.
+                    The first event emitted by dApp.
                 </p>
                 <p>
-                    Docs: <a>https://socket.io/docs/v3/rooms/</a>
+                    Joins the given room.
+                </p>
+                <p>
+                    Learn more about the concept of rooms: <a>https://socket.io/docs/v3/rooms/</a>
+                </p>
+            </div>
+
+            <div class="overflow-hidden content-section" id="content-on-connect-wallet">
+                <h2>connect_wallet</h2>
+                <pre>
+                    <code class="js">
+await walletSocket.emit("connect_wallet", {
+    Data: pubkey,
+    Room: accessCredentials.key,
+})
+                    </code>
+                </pre>
+                <p>
+                    The first event emitted by wallet.
+                </p>
+                <p>
+                    Joins the given room.
+                    Submits the pubkey/address to all other clients connected in the same room.
+                </p>
+                <p>
+                    Learn more about the concept of rooms: <a>https://socket.io/docs/v3/rooms/</a>
                 </p>
             </div>
 
@@ -177,18 +217,51 @@ socket.on("pubkey", (pubkey /* string type */) => {
                     </code>
                 </pre>
                 <p>
-                    The first event emitted by wallet.
+                    This event handler confirms that the wallet has successfully connected.
                 </p>
                 <p>
-                    One of the side-effects is joining a given room.
-                    Meaning that the wallet does not need to emit "create_room" anymore
+                    It also receives information about the connected wallet, including it's pubkey/address.
                 </p>
             </div>
+
+            <div class="overflow-hidden content-section" id="content-on-dapp-connected">
+                <h2>On dapp_connected</h2>
+                <pre>
+                    <code class="js">
+walletSocket.on("dapp_connected", async () => {
+    await walletSocket.emit("pubkey", { Data: pubkey, Room: room })
+})
+                    </code>
+                </pre>
+                <p>
+                    Handles edge case when dapp connects later than the wallet.
+                </p>
+                <p>
+                    Is also useful for handling multiple dApp connections simultaneously.
+                </p>
+            </div>
+
+            <div class="overflow-hidden content-section" id="content-on-confirm-dapp-connection">
+                <h2>On confirm_dapp_connection</h2>
+                <pre>
+                    <code class="js">
+walletSocket.on("confirm_dapp_connection", () => {
+    // dApp confirmed connection
+})
+
+await socket.emit("confirm_dapp_connection", { Room: room })
+                    </code>
+                </pre>
+                <p>
+                    Confirms that the dApp is connected to the server and that it has received the pubkey from the wallet.
+                </p>
+            </div>
+
             <div class="overflow-hidden content-section" id="content-on-sign-payload">
                 <h2>On sing_payload</h2>
                 <pre>
                     <code class="js">
-socket.emit("sign_payload", {
+await socket.emit("sign_payload", {
     Data: payloadJson, // SignerPayloadJSON type
     Room: accessCredentials.key
 })
@@ -217,6 +290,19 @@ socket.on("payload_signature", (data /* SignerResult type */) => {
                     Event handler used by wallet, when wallet decides to sign given payload.
                 </p>
             </div>
+            <div class="overflow-hidden content-section" id="content-on-update">
+                <h2>On update</h2>
+                <pre>
+                    <code class="js">
+socket.on("update", (id: number, status: H256 | ISubmittableResult) => {
+    // Handle the update logic
+})
+                    </code>
+                </pre>
+                <p>
+                    Receives an update for the extrinsic signed by a <code class="higlighted break-word">signer.sign</code>
+                </p>
+            </div>
             <div class="overflow-hidden content-section" id="content-on-payload-signature-rejected">
                 <h2>On payload_signature_rejected</h2>
                 <pre>
@@ -234,7 +320,7 @@ socket.on("payload_signature_rejected", () => {
                 <h2>On sign_raw</h2>
                 <pre>
                     <code class="js">
-socket.emit("sign_raw", {
+await socket.emit("sign_raw", {
     Data: rawMessage, // SignerPayloadRaw type
     Room: accessCredentials.key
 })
@@ -273,6 +359,19 @@ socket.on("raw_signature_rejected", () => {
                 </pre>
                 <p>
                     Event handler used by wallet, when wallet decides to reject the signing of given raw message.
+                </p>
+            </div>
+            <div class="overflow-hidden content-section" id="content-on-disconnect">
+                <h2>On disconnect</h2>
+                <pre>
+                    <code class="js">
+socket.on("disconnect", () => {
+    // react to the disconnection
+})
+                    </code>
+                </pre>
+                <p>
+                    Event handler that is fired whenever someone disconnects.
                 </p>
             </div>
             <br>

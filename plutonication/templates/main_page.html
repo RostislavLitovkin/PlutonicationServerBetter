@@ -4,16 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plutonication</title>
+    <link rel="stylesheet" href="../static/background-effect.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        p, a, h1 {
+            color: white;
+            text-decoration: none;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 50px;
+            box-sizing: border-box;
+        }
+        
+        .tile {
+            backdrop-filter: blur(5px);
+            background: linear-gradient(120deg, #8886, 90%, #1116);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            aspect-ratio: 1; /* Makes the tile square */
+        }
+
+        .icon {
+            height: 60px;
+            width: 60px;
+            margin-left: 30px;
+            border-radius: 15px;
+        }
+    </style>
 </head>
-<body>
-    <h1>Welcome to Plutonication</h1>
+<body style="background-color: black;">
+   
+    <span  style="z-index: -1;"></span>
+    <span  style="z-index: -1;"></span>
 
-    <p><b>Here is everything you might need:</b></p>
+    <div style="display: flex; align-items: center;">
+        <img 
+            src="../static/wallet_icons/plutowallet-icon-black.png"
+            class="icon">
+        <h1 style="margin-left: 15px;">Plutonication</h1>
+    </div>
 
-    <p><a href="/docs/javascript">Typescript dApp implementation guide</a></p>
-    <p><a href="/docs/react-example">React example dApp implementation guide</a></p>
-    <p><a href="/docs/csharp">C# dApp implementation guide</a></p>
-    <p><a href="/docs/flask-server">Python (flask) server documentation</a></p>
-    <p><a href="/deploy/flask-digital-ocean">Python (flask) server Digital Ocean deployment guide</a></p>
+    <div class="grid-container" >
+        <a href="/docs/javascript"><div class="tile">
+            Typescript dApp implementation guide
+        </div></a>
+        <a href="/docs/react-example"><div class="tile">React example dApp implementation guide</div></a>
+        <a href="/docs/csharp"><div class="tile">C# dApp implementation guide</div></a>
+        <a href="/docs/flask-server"><div class="tile">Python (flask) server documentation</div></a>
+        <a href="/deploy/flask-digital-ocean"><div class="tile">Python (flask) server Digital Ocean deployment guide</div></a>
+        <a href="https://github.com/RostislavLitovkin/PlutoWallet-presskit"><div class="tile">Presskit</div></a>
+    </div>
 </body>
 </html>

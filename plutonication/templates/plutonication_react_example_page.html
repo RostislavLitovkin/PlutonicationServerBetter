@@ -49,8 +49,8 @@
         <div class="mobile-menu-closer"></div>
         <div class="content-menu">
             <div class="content-infos">
-                <!--<div class="info"><b>Version:</b> 1.0.5</div>-->
-                <div class="info"><b>Last Updated:</b> 6th Feb, 2024</div>
+                <div class="info"><b>Version:</b> 1.1.0</div>
+                <div class="info"><b>Last Updated:</b> 2th July, 2024</div>
             </div>
             <ul>
                 <li class="scroll-to-link" data-target="content-installation">
@@ -69,8 +69,8 @@
                 <h1>Installation</h1>
                 <pre><code class="js">
 import {
-    PlutonicationDAppClient,
     AccessCredentials,
+    initializePlutonicationWalletClientWithModal
 } from '@plutonication/plutonication'
                 </code></pre>
                 <p>
@@ -100,8 +100,8 @@ function App() {
         const accessCredentials = new AccessCredentials(
             // Address of Plutonication server
             // Feel free to use this one
-            // Learn more: https://plutonication-acnha.ondigitalocean.app/docs/javascript
-            "wss://plutonication-acnha.ondigitalocean.app/",
+            // Learn more: https://plutonication.com/docs/javascript
+            "wss://plutonication.com/",
         
             // dApp name
             "Plutonication test",

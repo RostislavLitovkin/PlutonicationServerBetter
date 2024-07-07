@@ -1,7 +1,6 @@
 from flask import render_template
 from .extensions import app
 
-
 @app.route("/")
 @app.route("/docs")
 def main_page():
@@ -35,3 +34,21 @@ def plutonication_csharp_page():
 def digital_ocean_deployment_page():
     return render_template("digital_ocean_deployment_page.html")
 
+
+@app.route("/supported-wallets")
+def get_supported_wallets():
+    return [
+        {
+            "name": "PlutoWallet",
+            "icon": "https://rostislavlitovkin.pythonanywhere.com/plutowalleticonwhite",
+            "downloadAndroid": "https://play.google.com/store/apps/details?id=com.rostislavlitovkin.plutowallet",
+            "downloadIOS": None,
+            "github": "https://github.com/rostislavLitovkin/plutowallet",
+            "description": "",
+        },
+    ]
+
+
+@app.route("/plutowallet/terms-and-conditions")
+def pluto_wallet_terms_and_conditions_page():
+    return render_template("pluto_wallet_terms_and_conditions_page.html")
